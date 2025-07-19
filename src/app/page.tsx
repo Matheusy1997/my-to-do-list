@@ -6,10 +6,10 @@ export default function Home() {
   const [id, setId] = useState<number>(0)
   const [name, setName] = useState<string>('')
   
-
+  const arrayList = new Map()
 
   function addList() {
-    
+    arrayList.set(id, name)
   }
 
 
@@ -35,11 +35,7 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wider">1</td>
-              <td className="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wider">Estudar React</td>
-              <td className="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wider">X</td>
-            </tr>
+            
           </tbody>
         </table>
       </section>
