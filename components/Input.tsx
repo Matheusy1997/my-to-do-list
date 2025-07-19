@@ -4,7 +4,7 @@ interface InputProps{
     textChange: (n:string) => void
 }
 
-export function Input({onClick, idChange, textChange} : InputProps) {
+export default function Input({onClick, idChange, textChange} : InputProps) {
     return(
         <div className="flex flex-wrap bg-white border rounded">
             <input className="w-2/4 m-3 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400" type="number" placeholder="ID" min={0}  required onChange={(e) => idChange(Number(e.target.value))}/>
