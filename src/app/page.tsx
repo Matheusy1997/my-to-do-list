@@ -3,36 +3,35 @@ import { useState } from "react";
 import  Input  from "../../components/Input";
 import TableRow from "../../components/TableRow";
 
+interface ListItem {
+  id: number
+  name: string
+}
+
 export default function Home() {
-  const [id, setId] = useState<number>(0)
-  const [name, setName] = useState<string>('')
-  const [elemente, setElement] = useState<React.ReactNode>([])
+  const [currentId, setCurrentId] = useState<number>(0)
+  const [currentName, setCurrentName] = useState<string>('')
+  const [todoList, setTodoList] = useState<ListItem[]>([])
   
-  interface typeArray {
-    id: number
-    name: string
-  }
-  const arrayList = new Map()
 
-  function addList() {
-    
-    arrayList.set(id, {id, name})
-    setElement(createList)
+  function addListItem() {
+    const newItem: ListItem = {id: currentId, name: currentName}
+    setTodoList(prevTodoList => [...prevTodoList, newItem]);
+    console.log(todoList)
+
+    setCurrentId(0)
+    setCurrentName('')
   }
 
-  function createList() {
-    const result: React.ReactNode[] = []
-    arrayList.forEach(e => {
-      result.push(<TableRow key={e.id} id={e.id} name={e.name}/>)
-    })
-    return result
-  }
+  const deleteListItem = (idToDelete: number) => {
+    setTodoList(prevTodoList => prevTodoList.filter(item => item.id !== idToDelete));
+  };
 
   return (
     <main className="h-screen w-screen flex flex-col items-center text-white bg-black">
       <h1 className="text-3xl font-bold my-2.5">My to-do List</h1>
       <div className="w-2/4 my-2.5">
-        <Input onClick={addList} idChange={setId} textChange={setName}></Input>
+        <Input onSave={addListItem} idChange={setCurrentId} textChange={setCurrentName}></Input>
       </div>
       <section className="w-2/4 ">
         <table className="table-auto border border-gray-400 w-full">
@@ -50,7 +49,13 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {elemente}
+            {todoList.map(item => (
+              <TableRow
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              onDelete={deleteListItem}/>
+            ))}
           </tbody>
         </table>
       </section>
