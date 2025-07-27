@@ -31,7 +31,7 @@ export default function Home() {
     <main className="h-screen w-screen flex flex-col items-center text-white bg-black">
       <h1 className="text-3xl font-bold my-2.5">My to-do List</h1>
       <div className="w-2/4 my-2.5">
-        <Input onSave={addListItem} idChange={setCurrentId} textChange={setCurrentName}></Input>
+        <Input onSave={addListItem} idChange={setCurrentId} textChange={setCurrentName} currentId={currentId} currentNome={currentName}></Input>
       </div>
       <section className="w-2/4 ">
         <table className="table-auto border border-gray-400 w-full">

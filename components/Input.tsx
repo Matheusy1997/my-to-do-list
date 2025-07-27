@@ -4,9 +4,11 @@ interface InputProps {
   onSave: () => void;
   idChange: (n: number) => void;
   textChange: (n: string) => void;
+  currentId: number
+  currentNome: string
 }
 
-export default function Input({ onSave, idChange, textChange }: InputProps) {
+export default function Input({ onSave, idChange, textChange, currentId, currentNome }: InputProps) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     onSave();
@@ -19,6 +21,7 @@ export default function Input({ onSave, idChange, textChange }: InputProps) {
     >
       <input
         className="w-2/4 m-3 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
+        value={currentId === 0 ? '' : currentId}
         type="number"
         placeholder="ID"
         min={0}
@@ -28,6 +31,7 @@ export default function Input({ onSave, idChange, textChange }: InputProps) {
 
       <input
         className="w-full m-3 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
+        value={currentNome}
         type="text"
         placeholder="To-do"
         required
