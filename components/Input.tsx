@@ -4,11 +4,21 @@ interface InputProps {
   onSave: () => void;
   idChange: (n: number) => void;
   textChange: (n: string) => void;
-  currentId: number
-  currentNome: string
+  filterChange: (n: string) => void;
+  currentFilter: string
+  currentId: number;
+  currentNome: string;
 }
 
-export default function Input({ onSave, idChange, textChange, currentId, currentNome }: InputProps) {
+export default function Input({
+  onSave,
+  idChange,
+  textChange,
+  filterChange,
+  currentFilter,
+  currentId,
+  currentNome,
+}: InputProps) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     onSave();
@@ -21,7 +31,7 @@ export default function Input({ onSave, idChange, textChange, currentId, current
     >
       <input
         className="w-2/4 m-3 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
-        value={currentId === 0 ? '' : currentId}
+        value={currentId === 0 ? "" : currentId}
         type="number"
         placeholder="ID"
         min={0}
@@ -44,6 +54,15 @@ export default function Input({ onSave, idChange, textChange, currentId, current
       >
         Save
       </button>
+
+      <input
+        type="text"
+        name="filter"
+        placeholder="Filter list"
+        className="w-full m-3 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
+        value={currentFilter}
+        onChange={e => filterChange(e.target.value)}
+      />
     </form>
   );
 }

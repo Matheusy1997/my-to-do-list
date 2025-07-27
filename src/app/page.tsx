@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import  Input  from "../../components/Input";
 import TableRow from "../../components/TableRow";
 
@@ -12,6 +12,11 @@ export default function Home() {
   const [currentId, setCurrentId] = useState<number>(0)
   const [currentName, setCurrentName] = useState<string>('')
   const [todoList, setTodoList] = useState<ListItem[]>([])
+  const [currentFilter , setCurrentFilter] = useState<string>('')
+
+  useEffect(() => {
+
+  }, [currentFilter])
   
 
   function addListItem() {
@@ -23,6 +28,12 @@ export default function Home() {
     setCurrentName('')
   }
 
+  const filterList = currentFilter 
+    ? todoList.filter((item) => 
+      item.name.toLocaleLowerCase().includes(currentFilter.toLocaleLowerCase())
+    )
+    : todoList
+
   const deleteListItem = (idToDelete: number) => {
     setTodoList(prevTodoList => prevTodoList.filter(item => item.id !== idToDelete));
   };
@@ -31,7 +42,7 @@ export default function Home() {
     <main className="h-screen w-screen flex flex-col items-center text-white bg-black">
       <h1 className="text-3xl font-bold my-2.5">My to-do List</h1>
       <div className="w-2/4 my-2.5">
-        <Input onSave={addListItem} idChange={setCurrentId} textChange={setCurrentName} currentId={currentId} currentNome={currentName}></Input>
+        <Input onSave={addListItem} idChange={setCurrentId} textChange={setCurrentName} currentId={currentId} currentNome={currentName} filterChange={setCurrentFilter} currentFilter={currentFilter}></Input>
       </div>
       <section className="w-2/4 ">
         <table className="table-auto border border-gray-400 w-full">
@@ -49,12 +60,12 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {todoList.map(item => (
+            {filterList.map(item => (
               <TableRow
               key={item.id}
               id={item.id}
               name={item.name}
-              onDelete={deleteListItem}/>
+              onDelete={deleteListItem}/> 
             ))}
           </tbody>
         </table>
